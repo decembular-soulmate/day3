@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Orbit Soulmate</title>
+    <title>Orbit Soulmate Finder</title>
     <style>
         body {
             margin: 0;
@@ -11,7 +11,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             background-color: #0d47a1;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -57,17 +57,13 @@
             border-radius: 15px;
             font-size: 18px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .btn-reveal:hover { background-color: #a50b0b; }
-
-        /* Overlay & Modal */
         .overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
             z-index: 10;
@@ -75,28 +71,19 @@
 
         .modal {
             background-color: #f1f3f5;
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 30px;
             width: 85%;
             max-width: 350px;
             text-align: center;
         }
 
-        .result-image {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            border: 5px solid #1565c0;
-        }
-
         .modal-text {
             color: #1565c0;
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.4;
+            line-height: 1.5;
+            margin-bottom: 30px;
         }
 
         .btn-close {
@@ -114,22 +101,21 @@
 
     <div class="card">
         <h1>✨ Who is your Orbit soulmate?</h1>
-        <p>Type your name to reveal your destiny among these Orbits.</p>
+        <p>Type your name to find your destiny.</p>
         
         <input type="text" id="userName" placeholder="Enter your name..." autocomplete="off">
-        <button class="btn-reveal" onclick="revealFate()">Reveal Soulmate</button>
+        <button class="btn-reveal" onclick="revealFate()">Reveal Fate</button>
     </div>
 
     <div class="overlay" id="overlay">
         <div class="modal">
-            <div id="imagePlaceholder"></div>
             <div class="modal-text" id="resultText"></div>
             <button class="btn-close" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
-        // Daftar 40 nama sesuai gambar yang diupload
+        // List 40 Orbit + 3 Spesial (Total 43 Nama)
         const orbitList = [
             "OrbitJunhui", "OrbitKayina", "OrbitJungwon", "OrbitJasmine",
             "OrbitGyuvin", "OrbitAnnaa", "OrbitHao", "OrbitParkJihyo",
@@ -151,27 +137,20 @@
                 return;
             }
 
-            const baseUrl = "https://raw.githubusercontent.com/decembular-soulmate/bima/main/";
+            // Pengacakan murni berdasarkan panjang array
+            const randomIndex = Math.floor(Math.random() * orbitList.length);
+            const selectedSoulmate = orbitList[randomIndex];
 
-            // Menggunakan algoritma Fisher-Yates shuffle singkat untuk memastikan keadilan
-            const shuffled = [...orbitList].sort(() => Math.random() - 0.5);
-            const selectedOrbit = shuffled[Math.floor(Math.random() * shuffled.length)];
-
-            // Tampilkan gambar
-            // Catatan: Pastikan semua file di GitHub berakhiran .png
-            const imgHtml = `<img src="${baseUrl}${selectedOrbit}.png?t=${new Date().getTime()}" class="result-image" onerror="this.src='https://via.placeholder.com/250?text=Image+Not+Found'">`;
-            document.getElementById('imagePlaceholder').innerHTML = imgHtml;
-
-            // Pesan hasil dalam Bahasa Inggris
-            document.getElementById('resultText').innerText = `OMG ${nameInput}! Look who just matched with you!`;
+            // Teks hasil sesuai permintaanmu
+            const resultMsg = `Wah ${nameInput}, your soulmate is ${selectedSoulmate}!`;
             
+            document.getElementById('resultText').innerText = resultMsg;
             document.getElementById('overlay').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('userName').value = ''; 
-            document.getElementById('imagePlaceholder').innerHTML = '';
         }
     </script>
 
