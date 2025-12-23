@@ -26,6 +26,16 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
+        /* Style untuk Avatar Circle */
+        .avatar {
+            width: 80px; /* Ukuran sedang */
+            height: 80px;
+            border-radius: 50%; /* Membuat lingkaran */
+            object-fit: cover;
+            border: 3px solid #1565c0;
+            margin-bottom: 15px;
+        }
+
         h1 {
             color: #1565c0;
             font-size: 24px;
@@ -100,7 +110,9 @@
 <body>
 
     <div class="card">
-        <h1>✨ Who is your Orbit soulmate?</h1>
+        <img src="https://raw.githubusercontent.com/decembular-soulmate/bima/main/ava.png" alt="Avatar" class="avatar">
+        
+        <h1>💫 Who is your Orbit soulmate?</h1>
         <p>Type your name to find your destiny.</p>
         
         <input type="text" id="userName" placeholder="Enter your name..." autocomplete="off">
@@ -115,7 +127,6 @@
     </div>
 
     <script>
-        // List 40 Orbit + 3 Spesial (Total 43 Nama)
         const orbitList = [
             "OrbitJunhui", "OrbitKayina", "OrbitJungwon", "OrbitJasmine",
             "OrbitGyuvin", "OrbitAnnaa", "OrbitHao", "OrbitParkJihyo",
@@ -137,12 +148,10 @@
                 return;
             }
 
-            // Pengacakan murni berdasarkan panjang array
             const randomIndex = Math.floor(Math.random() * orbitList.length);
             const selectedSoulmate = orbitList[randomIndex];
 
-            // Teks hasil sesuai permintaanmu
-            const resultMsg = `Wah ${nameInput}, your soulmate is ${selectedSoulmate}!`;
+            const resultMsg = `Wah ${nameInput}, your soulmate is ${selectedSoulmate}! Mention them & give your reaction!`;
             
             document.getElementById('resultText').innerText = resultMsg;
             document.getElementById('overlay').style.display = 'flex';
