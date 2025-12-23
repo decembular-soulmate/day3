@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Soulmate Is...</title>
+    <style>
+        /* Mengatur background utama */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0d47a1; /* Warna biru tua background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container utama (Kartu abu-abu muda) */
+        .card {
+            background-color: #e3e9f2;
+            padding: 40px 30px;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        /* Judul dengan emoji bintang */
+        h1 {
+            color: #1565c0;
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        /* Style Input Name */
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ddd;
+            font-size: 18px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            outline: none;
+            color: #333;
+        }
+
+        input[type="text"]::placeholder {
+            color: #aaa;
+        }
+
+        /* Tombol Reveal Fate */
+        .btn-reveal {
+            width: 100%;
+            padding: 15px;
+            background-color: #c62828; /* Warna merah */
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-reveal:hover {
+            background-color: #a50b0b;
+        }
+        /* Overlay Pop-up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Background gelap transparan */
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Kotak Pop-up (Modal) */
+        .modal {
+            background-color: #f1f3f5;
+            padding: 30px;
+            border-radius: 30px;
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .modal-text {
+            color: #1565c0;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Tombol Close di Pop-up */
+        .btn-close {
+            background-color: #ffeb3b; /* Warna kuning */
+            color: #0d47a1;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #fbc02d;
+        }
+
+        .btn-close:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="card">
+        <h1>✨ Your Soulmate is...</h1>
+        <p>Type your name and let the cosmic nonsense unfold.</p>
+        
+        <input type="text" id="userName" placeholder="Your name..." autocomplete="off">
+        <button class="btn-reveal" onclick="revealFate()">Reveal Fate</button>
+    </div>
+    <div class="overlay" id="overlay">
+        <div class="modal">
+            <div class="modal-text" id="resultText"></div>
+            <button class="btn-close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const zodiacs = [
+            "Aries", "Taurus", "Gemini", "Cancer", 
+            "Leo", "Virgo", "Libra", "Scorpio", 
+            "Sagittarius", "Capricorn", "Aquarius", "Pisces"
+        ];
+
+        function revealFate() {
+            const nameInput = document.getElementById('userName').value;
+            
+            if (nameInput.trim() === "") {
+                alert("Please enter your name first!");
+                return;
+            }
+
+            // Memilih zodiac secara acak dengan peluang rata
+            const randomZodiac = zodiacs[Math.floor(Math.random() * zodiacs.length)];
+            
+            // Menyusun teks jawaban
+            const resultMsg = `${nameInput}, your soulmate is ${randomZodiac}.`;
+            
+            // Menampilkan di modal
+            document.getElementById('resultText').innerText = resultMsg;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('userName').value = ''; // Reset input
+        }
+    </script>
+
+</body>
+</html>
